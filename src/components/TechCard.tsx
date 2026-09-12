@@ -13,18 +13,32 @@ const TechCard = ({ techPromise }: TechCardProps) => {
 
   const addToStack = (technology: Technology) => {
     setStack([...stack, technology]);
-  }
+  };
 
+  const removeFromStack = (technology: Technology) => {
+    const restStack = stack.filter(
+      (stackedTech) => stackedTech.id !== technology.id,
+    );
+
+    setStack(restStack);
+  };
+
+  const removeAll = () => setStack([]);
 
   return (
     <div className="mt-15 flex container mx-auto gap-10 items-start">
       <div className="grid grid-cols-3 gap-5">
         {technologies.map((technology) => (
-          <TechnologyCard key={technology.id} technology={technology} addToStack={addToStack} />
+          <TechnologyCard
+            key={technology.id}
+            technology={technology}
+            addToStack={addToStack}
+            isInStack={stack.some((t) => t.id === technology.id)}
+          />
         ))}
       </div>
 
-      <YourStackCard stack={stack} />
+      <YourStackCard stack={stack} removeFromStack={removeFromStack} removeAll={removeAll} />
     </div>
   );
 };

@@ -1,10 +1,26 @@
+import { Bounce, toast } from "react-toastify";
 import type { Technology } from "../Technology";
 
 interface CardWithStackProps {
   technology: Technology;
+  removeFromStack: (technology: Technology) => void;
 }
 
-const CardWithStack = ({ technology }: CardWithStackProps) => {
+const CardWithStack = ({ technology, removeFromStack }: CardWithStackProps) => {
+  const handleRemove = () => {
+    removeFromStack(technology);
+    toast.info(`${technology.name} removed from your stack`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
+  };
   return (
     <ul className="list bg-base-100 rounded-box shadow-md">
       <li className="list-row">
@@ -21,7 +37,7 @@ const CardWithStack = ({ technology }: CardWithStackProps) => {
             {technology.category}
           </div>
         </div>
-        <button className="btn btn-square btn-ghost">
+        <button onClick={handleRemove} className="btn btn-square btn-ghost">
           <svg
             aria-label="Remove"
             className="size-[1.2em]"
