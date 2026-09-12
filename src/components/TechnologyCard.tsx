@@ -1,4 +1,6 @@
+import { Bounce, toast } from "react-toastify";
 import type { Technology } from "../Technology";
+import { useState } from "react";
 
 interface TechnologyCardProps {
   technology: Technology;
@@ -6,6 +8,24 @@ interface TechnologyCardProps {
 }
 
 const TechnologyCard = ({ technology, addToStack }: TechnologyCardProps) => {
+  const [added, setAdded] = useState(false);
+
+  const handleAddToStack = () => {
+    if (added) return;
+    addToStack(technology);
+    toast.success(`${technology.name} added to your stack!`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
+    setAdded(true);
+  };
   return (
     <div className="w-80 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
       <div className="flex items-center justify-between">
@@ -44,8 +64,18 @@ const TechnologyCard = ({ technology, addToStack }: TechnologyCardProps) => {
         </div>
       </div>
 
-      <button onClick={() => addToStack(technology)} className="mt-5 w-full rounded-xl bg-gray-900 py-3 text-sm font-medium text-white hover:bg-gray-800">
-        Add to Stack
+      <button
+        onClick={handleAddToStack}
+        disabled={added}
+        className="mt-5 w-full rounded-xl border border-transparent bg-gray-900 py-3 text-sm font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-white disabled:hover:bg-white"
+      >
+        {added ? (
+          <span className="bg-linear-to-r from-[#FF5722] via-[#D81B7E] to-[#7C3AED] bg-clip-text text-transparent">
+            ✓ Added
+          </span>
+        ) : (
+          "Add to Stack"
+        )}
       </button>
     </div>
   );

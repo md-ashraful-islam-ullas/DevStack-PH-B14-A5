@@ -13,10 +13,14 @@ const YourStackCard = ({ stack }: YourStackCardProps) => {
       {stack.length === 0 ? (
         <EmptyStack />
       ) : (
-        <div className="mt-5 space-y-3">
+        <div className="mt-2 space-y-3">
+          <p className="text-gray-400">{stack.length} technologies selected.</p>
           {stack.map((technology) => (
             <CardWithStack key={technology.id} technology={technology} />
           ))}
+          <button className="w-full rounded-xl border border-red-300 bg-white py-3 text-sm font-semibold text-red-500 hover:bg-red-50">
+            Remove All
+          </button>
         </div>
       )}
     </div>

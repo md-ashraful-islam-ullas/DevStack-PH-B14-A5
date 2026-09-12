@@ -5,6 +5,7 @@ import Nav from "./components/Nav"
 import type { Technology } from "./Technology"
 import TechnologyHeader from "./components/TechnologyHeader"
 import TechCard from "./components/TechCard"
+import { ToastContainer } from "react-toastify"
 
 const techFetch = async(): Promise<Technology[]> => {
   const res = await fetch('/data.json');
@@ -25,6 +26,7 @@ function App() {
       <Suspense fallback={<div>Loading Technologies ...</div>}>
         <TechCard techPromise={techPromise} />
        </Suspense>
+       <ToastContainer />
     </>
   )
 }
