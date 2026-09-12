@@ -44,7 +44,7 @@ const TechnologyCard = ({ technology, addToStack, isInStack }: TechnologyCardPro
         {technology.name}
       </h3>
 
-      <p className="mt-2 text-sm text-gray-500">{technology.description}</p>
+      <p className="mt-2 text-sm font-light text-gray-500">{technology.description}</p>
 
       <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-4">
         <span className="rounded-lg bg-gray-100 px-3 py-1 text-sm text-gray-600">
